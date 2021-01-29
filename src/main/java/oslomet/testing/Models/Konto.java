@@ -2,7 +2,7 @@ package oslomet.testing.Models;
 
 import java.util.List;
 // Test
-
+////////DETTE ER EN TEST!!!!
 public class Konto
 {
     private String personnummer;
