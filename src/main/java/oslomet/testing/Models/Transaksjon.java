@@ -1,5 +1,6 @@
 package oslomet.testing.Models;
-
+import org.junit.Test;
+import static org.junit.Assert.*;
 public class Transaksjon
 {
     private int txID;
