@@ -24,8 +24,8 @@ public class BankController {
 
     @GetMapping("/hentTransaksjoner")
     public Konto hentTransaksjoner(String kontoNr, String fraDato, String tilDato) {
-         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        String personnummer = sjekk.loggetInn();
+        if (personnummer != null) {
             return repository.hentTransaksjoner(kontoNr, fraDato, tilDato);
         }
         return null;
@@ -34,7 +34,7 @@ public class BankController {
     @GetMapping("/hentKonti")
     public List<Konto> hentKonti() {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        if (personnummer != null) {
             return repository.hentKonti(personnummer);
         }
         return null;
@@ -43,7 +43,7 @@ public class BankController {
     @GetMapping("/hentSaldi")
     public List<Konto> hentSaldi() {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        if (personnummer != null) {
             return repository.hentSaldi(personnummer);
         }
         return null;
@@ -52,7 +52,7 @@ public class BankController {
     @PostMapping("/registrerBetaling")
     public String registrerBetaling(@RequestBody Transaksjon betaling) {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        if (personnummer != null) {
             return repository.registrerBetaling(betaling);
         }
         return null;
@@ -61,7 +61,7 @@ public class BankController {
     @GetMapping("/hentBetalinger")
     public List<Transaksjon> hentBetalinger() {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        if (personnummer != null) {
             return repository.hentBetalinger(personnummer);
         }
         return null;
@@ -70,7 +70,7 @@ public class BankController {
     @GetMapping("/utforBetaling")
     public List<Transaksjon> utforBetaling(int txID) {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        if (personnummer != null) {
             if (repository.utforBetaling(txID).equals("OK")) {
                 return repository.hentBetalinger(personnummer);
             }
@@ -81,7 +81,7 @@ public class BankController {
     @GetMapping("/hentKundeInfo")
     public Kunde hentKundeInfo() {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        if (personnummer != null) {
             Kunde kunde = repository.hentKundeInfo(personnummer);
             return kunde;
         }
@@ -91,10 +91,10 @@ public class BankController {
     @PostMapping("/endreKundeInfo")
     public String endre(Kunde innKunde) {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
-                innKunde.setPersonnummer(personnummer);
-                return repository.endreKundeInfo(innKunde);
-            }
+        if (personnummer != null) {
+            innKunde.setPersonnummer(personnummer);
+            return repository.endreKundeInfo(innKunde);
+        }
         return null;
     }
 }
