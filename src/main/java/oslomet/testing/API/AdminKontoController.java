@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/adminKonto")
 public class AdminKontoController {
+
     @Autowired
     AdminRepository repository;
 

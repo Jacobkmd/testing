@@ -1,11 +1,12 @@
 package oslomet.testing.Models;
 
 import java.util.List;
-// Test
-////////DETTE ER EN TEST!!!!
-//test3
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class Konto
 {
+
     private String personnummer;
     private String kontonummer;
     private double saldo;
@@ -23,6 +24,7 @@ public class Konto
     }
 
     public Konto() {
+
     }
 
     public String getPersonnummer() {
