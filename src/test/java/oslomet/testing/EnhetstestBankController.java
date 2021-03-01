@@ -228,5 +228,32 @@ public class EnhetstestBankController {
     }
 
 
+    @Test
+    public void hentBetalinger_loggetInn() {
+        List<Transaksjon> betalinger = new ArrayList<>();
+        Transaksjon transaksjon1 = new Transaksjon(1, "enBetaling", 4000.00, "01.013333", "heisann", "1", "01010110523" );
+        Transaksjon transaksjon2 = new Transaksjon(2, "enBetaling2", 5000.00, "01.014444", "Hello", "2", "0204667899");
+        betalinger.add(transaksjon1);
+        betalinger.add(transaksjon2);
+
+        when(sjekk.loggetInn()).thenReturn("03456776655");
+        when(repository.hentBetalinger(anyString())).thenReturn(betalinger);
+
+        List<Transaksjon> Resultat = bankController.hentBetalinger();
+
+        assertEquals(betalinger, Resultat);
+
+    }
+
+    @Test
+    public void hentBetalinger_ikkeLoggetInn() {
+
+        when(sjekk.loggetInn()).thenReturn(null);
+
+        List<Transaksjon> Resultat = bankController.hentBetalinger();
+
+        assertNull(Resultat);
+    }
+
 }
 
