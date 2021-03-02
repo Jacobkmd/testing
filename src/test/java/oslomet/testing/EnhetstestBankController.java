@@ -255,5 +255,33 @@ public class EnhetstestBankController {
         assertNull(Resultat);
     }
 
+    @Test
+    public void utforBetaling_loggetinn() {
+        List<Transaksjon> betalinger = new ArrayList<>();
+        Transaksjon transaksjon1 = new Transaksjon(1, "enBetaling", 4000.00, "01.013333", "heisann", "1", "01010110523" );
+        betalinger.add(transaksjon1);
+
+
+        when(sjekk.loggetInn()).thenReturn("03456776655");
+        when(repository.utforBetaling(anyInt())).thenReturn("OK");
+        when(repository.hentBetalinger(anyString())).thenReturn(betalinger); // Måtte huske å sette hentbetalinger til å returnere betalinger.
+
+
+        List<Transaksjon> resultat = bankController.utforBetaling(1); //samme hvilket nummer man bruker her.
+
+        assertEquals(betalinger, resultat);
+
+
+    }
+
+    @Test
+    public void utforBetaling_ikkeLoggetInn(){
+        when(sjekk.loggetInn()).thenReturn(null);
+
+        List<Transaksjon> Resultat = bankController.utforBetaling(1);
+
+        assertNull(Resultat);
+    }
+
 }
 
