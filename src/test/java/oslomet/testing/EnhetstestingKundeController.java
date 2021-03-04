@@ -83,15 +83,49 @@ public class EnhetstestingKundeController {
 
      @Test
     public void lagreKunde_ikkeLoggetInn() {
+         //arrange
          Kunde innKunde = new Kunde("02058740889",
                  "Henriette", "Magnussen", "Osloveien 19", "0880",
                  "Oslo","99345467","Heipådeg");
-         when(sjekk.loggetInn()).thenReturn(null);
 
+        //act
          String resultat = adminKundeController.lagreKunde(innKunde);
 
+        //assert
          assertEquals("Ikke logget inn", resultat);
      }
 
+     @Test
+    public void testEndre(){
+         //arrange
+         Kunde innKunde = new Kunde();
+         when(sjekk.loggetInn()).thenReturn("OK");
+         when(repository.endreKundeInfo(innKunde)).thenReturn("Logget inn");
 
+         //act
+         String result = adminKundeController.endre(innKunde);
+
+         //assert
+         assertEquals("Logget inn", result);
+         verify(repository).endreKundeInfo(innKunde);
+     }
+
+     @Test
+    public void testFailEndre(){
+         //arrange
+         Kunde innKunde = new Kunde();
+
+         //act
+         String result = adminKundeController.endre(innKunde);
+
+         //assert
+         assertEquals("Ikke logget inn", result);
+         verify(repository, never()).endreKundeInfo(innKunde);
+     }
+
+     @Test
+    public void testSlett(){
+         when(sjekk.loggetInn()).thenReturn("OK");
+
+     }
 }
