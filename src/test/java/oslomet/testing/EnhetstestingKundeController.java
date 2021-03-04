@@ -37,88 +37,61 @@ public class EnhetstestingKundeController {
     private Sikkerhet sjekk;
 
 
-    @Test
+     @Test
     public void hentAlle_loggetInn() {
-        List<Kunde> alleKunder = new ArrayList<>();
-        Kunde kunde1 = new Kunde("01010110523",
-                "Marius", "Lerøy", "Askerveien 22", "3270",
-                "Asker", "98567632", "HeiHei");
-        Kunde kunde2 = new Kunde("02058740889",
-                "Henriette", "Magnussen", "Osloveien 19", "0880",
-                "Oslo", "99345467", "Heipådeg");
-        alleKunder.add(kunde1);
-        alleKunder.add(kunde2);
+         List<Kunde> alleKunder = new ArrayList<>();
+         Kunde kunde1 = new Kunde("01010110523",
+                 "Marius", "Lerøy", "Askerveien 22", "3270",
+                 "Asker", "98567632", "HeiHei");
+         Kunde kunde2 = new Kunde("02058740889",
+                 "Henriette", "Magnussen", "Osloveien 19", "0880",
+                 "Oslo","99345467","Heipådeg");
+         alleKunder.add(kunde1);
+         alleKunder.add(kunde2);
 
-        when(sjekk.loggetInn()).thenReturn("02048840995");
-        when(repository.hentAlleKunder()).thenReturn(alleKunder);
+         when(sjekk.loggetInn()).thenReturn("02048840995");
+         when(repository.hentAlleKunder()).thenReturn(alleKunder);
 
-        List<Kunde> resultat = adminKundeController.hentAlle();
+         List<Kunde> resultat = adminKundeController.hentAlle();
 
-        assertEquals(alleKunder, resultat);
-    }
+         assertEquals(alleKunder, resultat);
+     }
 
-    @Test
-    public void hentAlle_ikkeLoggetInn() {
-        when(sjekk.loggetInn()).thenReturn(null);
+     @Test
+     public void hentAlle_ikkeLoggetInn() {
+         when(sjekk.loggetInn()).thenReturn(null);
 
-        List<Kunde> resultat = adminKundeController.hentAlle();
+         List<Kunde> resultat = adminKundeController.hentAlle();
 
-        assertNull(resultat);
-    }
+         assertNull(resultat);
+     }
 
-    @Test
+     @Test
     public void lagreKunde_loggetInn() {
-        Kunde innKunde = new Kunde("02058740889",
-                "Henriette", "Magnussen", "Osloveien 19", "0880",
-                "Oslo", "99345467", "Heipådeg");
+         Kunde innKunde = new Kunde("02058740889",
+                 "Henriette", "Magnussen", "Osloveien 19", "0880",
+                 "Oslo","99345467","Heipådeg");
 
-        when(sjekk.loggetInn()).thenReturn("0456789906");
-        when(repository.registrerKunde(innKunde)).thenReturn("OK");
+         when(sjekk.loggetInn()).thenReturn("0456789906");
+         when(repository.registrerKunde(innKunde)).thenReturn("OK");
 
-        String resultat = adminKundeController.lagreKunde(innKunde);
+         String resultat = adminKundeController.lagreKunde(innKunde);
 
-        assertEquals("OK", resultat);
+         assertEquals("OK", resultat);
 
-    }
+     }
 
-    @Test
+     @Test
     public void lagreKunde_ikkeLoggetInn() {
-        Kunde innKunde = new Kunde("02058740889",
-                "Henriette", "Magnussen", "Osloveien 19", "0880",
-                "Oslo", "99345467", "Heipådeg");
+         Kunde innKunde = new Kunde("02058740889",
+                 "Henriette", "Magnussen", "Osloveien 19", "0880",
+                 "Oslo","99345467","Heipådeg");
+         when(sjekk.loggetInn()).thenReturn(null);
 
-        when(sjekk.loggetInn()).thenReturn("OK");
-        when(repository.registrerKunde(innKunde)).thenReturn("Ikke logget inn");
-        String resultat = adminKundeController.lagreKunde(innKunde);
+         String resultat = adminKundeController.lagreKunde(innKunde);
 
-        assertEquals("Ikke logget inn", resultat);
+         assertEquals("Ikke logget inn", resultat);
+     }
 
-    }
-
-    @Test
-    public void endreKunde_loggetInn() {
-        Kunde innKunde = new Kunde("02058740889",
-                "Henriette", "Magnussen", "Osloveien 19", "0880",
-                "Oslo", "99345467", "Heipådeg");
-
-        when(sjekk.loggetInn()).thenReturn("0456789906");
-        when(repository.registrerKunde(innKunde)).thenReturn("OK");
-
-        String resultat = adminKundeController.lagreKunde(innKunde);
-
-        assertEquals("OK", resultat);
-    }
-
-    @Test
-    public void endreKunde_IkkeLoggetInn() {
-        Kunde innKunde = new Kunde("02058740889",
-                "Henriette", "Magnussen", "Osloveien 19", "0880",
-                "Oslo", "99345467", "Heipådeg");
-        when(sjekk.loggetInn()).thenReturn("OK");
-
-        String resultat = adminKundeController.lagreKunde(innKunde);
-
-        assertNull(resultat, "Ikke logget inn");
-    }
 
 }
