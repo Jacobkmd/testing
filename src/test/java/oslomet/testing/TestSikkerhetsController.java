@@ -90,7 +90,7 @@ public class TestSikkerhetsController {
 
         assertEquals("01234566778", resultat);
     }
-
+//heihei
     @Test
     public void testFail_LoggetInn() {
         session.setAttribute(null, null);
