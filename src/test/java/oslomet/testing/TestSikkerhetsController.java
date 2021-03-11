@@ -83,4 +83,29 @@ public class TestSikkerhetsController {
 
         assertEquals("01234566778", resultat);
     }
+
+    @Test
+    public void testFail_LoggetInn() {
+        session.setAttribute(null, null);
+
+        String resultat = sikkerhet.loggetInn();
+
+        assertNull(resultat);
+    }
+
+    @Test
+    public void test_LoggInnAdmin() {
+
+        String resultat = sikkerhet.loggInnAdmin("Admin", "Admin");
+
+        assertEquals("Logget inn", resultat);
+    }
+
+    @Test
+    public void test_LoggInnAdminFail() {
+
+        String resultat = sikkerhet.loggInnAdmin("IkkeAdmin", "IkkeAdmin");
+
+        assertEquals("Ikke logget inn", resultat);
+    }
 }
