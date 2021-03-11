@@ -35,6 +35,37 @@ public class EnhetstestKontoController {
     @Mock
     private Sikkerhet sjekk;
 
+    @Test
+    public void hentAlleLoggetInn(){
+        List<Transaksjon> enTransaksjon = new ArrayList<>();
+        List<Konto> kontoer = new ArrayList<>();
+        Konto konto1 = new Konto("01010110523","01010110523",
+                5000,"Lønn","nok",enTransaksjon);
+        Konto konto2 = new Konto("01010110523","01010110523",
+                5000,"strøm","nok",enTransaksjon);
+        kontoer.add(konto1);
+        kontoer.add(konto2);
+
+        when(sjekk.loggetInn()).thenReturn("02048840995");
+        when(repository.hentAlleKonti()).thenReturn(kontoer);
+
+        List<Konto> resultat = adminKontoController.hentAlleKonti();
+
+        assertEquals(kontoer, resultat);
+    }
+
+    @Test
+    public void hentAlleIkkeLoggetInn(){
+        // arrange
+        when(sjekk.loggetInn()).thenReturn(null);
+
+        //act
+        List<Konto> resultat = adminKontoController.hentAlleKonti();
+
+        // assert
+        assertNull(resultat);
+    }
+
 
     @Test
     public void testRegKonto() {
@@ -55,6 +86,7 @@ public class EnhetstestKontoController {
     public void testFailRegKonto() {
         //arrange
         Konto konto = new Konto();
+        when(repository.registrerKonto(konto)).thenReturn("Ikke innlogget");
 
         //act
         String result = adminKontoController.registrerKonto(konto);
@@ -65,7 +97,7 @@ public class EnhetstestKontoController {
     }
 
     @Test
-    public void testEndreKonto() {
+    public void testEndreKonto(){
         //arrange
         Konto konto = new Konto();
         when(sjekk.loggetInn()).thenReturn("OK");
@@ -80,9 +112,10 @@ public class EnhetstestKontoController {
     }
 
     @Test
-    public void testFailEndreKonto() {
+    public void testFailEndreKonto(){
         //arrange
         Konto konto = new Konto();
+        when(repository.endreKonto(konto)).thenReturn("Ikke innlogget");
 
         //act
         String result = adminKontoController.endreKonto(konto);
@@ -94,22 +127,24 @@ public class EnhetstestKontoController {
     }
 
     @Test
-    public void testSlettKonto() {
+    public void testSlettKonto(){
         //arrange
-        when(sjekk.loggetInn()).thenReturn("Logget inn");
-        when(repository.slettKonto("12345678900")).thenReturn("OK");
+
+        when(sjekk.loggetInn()).thenReturn("OK");
+        when(repository.slettKonto("12345678900")).thenReturn("kontonummer");
 
         //act
         String result = adminKontoController.slettKonto("12345678900");
 
         //assert
-        assertEquals("OK", result);
+        assertEquals("kontonummer", result);
+        verify(repository).slettKonto("12345678900");
     }
 
     @Test
-    public void testFailSlettKonto() {
+    public void testFailSlettKonto(){
         //arrange
-
+        when(repository.slettKonto("12345678900")).thenReturn("Ikke innlogget");
 
         //act
         String result = adminKontoController.slettKonto("12345678900");

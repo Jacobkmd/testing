@@ -1,7 +1,7 @@
 package oslomet.testing;
 
 
-import javafx.beans.binding.When;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
