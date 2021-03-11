@@ -44,19 +44,18 @@ public class Sikkerhet {
     }
 
     @GetMapping("/loggInnAdmin")
-    public String loggInnAdmin(String bruker, String passord){
+    public String loggInnAdmin(String bruker, String passord) {
         if (bruker.equals("Admin") && (passord.equals(("Admin")))) {
             session.setAttribute("Innlogget", "Admin");
             return "Logget inn";
-        }
-        else {
+        } else {
             session.setAttribute("Innlogget", null);
             return "Ikke logget inn";
         }
     }
 
     public String loggetInn() {
-        if (session.getAttribute("Innlogget") != null){
+        if (session.getAttribute("Innlogget") != null) {
             return (String) session.getAttribute("Innlogget");
         }
         return null;

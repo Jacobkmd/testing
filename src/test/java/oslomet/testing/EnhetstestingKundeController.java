@@ -135,11 +135,10 @@ public class EnhetstestingKundeController {
 
         //assert
         assertEquals("OK", result);
-        verify(repository).slettKonto(personnr);
     }
 
     @Test
-    public void testFailSlett(){
+    public void testFailSlett() {
         String personnummer = "personnummer";
 
         String result = adminKundeController.slett(personnummer);
