@@ -21,7 +21,7 @@ public class AdminKontoController {
     @GetMapping("/hentAlle")
     public List<Konto> hentAlleKonti() {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        if (personnummer != null) {
             return repository.hentAlleKonti();
         }
         return null;
@@ -30,7 +30,7 @@ public class AdminKontoController {
     @PostMapping("/registrer")
     public String registrerKonto(@RequestBody Konto konto) {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        if (personnummer != null) {
             String retur = repository.registrerKonto(konto);
             return retur;
         }
@@ -40,7 +40,7 @@ public class AdminKontoController {
     @PostMapping("/endre")
     public String endreKonto(@RequestBody Konto konto) {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        if (personnummer != null) {
             return repository.endreKonto(konto);
         }
         return "Ikke innlogget";
@@ -49,8 +49,8 @@ public class AdminKontoController {
     @GetMapping("/slett")
     public String slettKonto(String kontonummer) {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
-           return repository.slettKonto(kontonummer);
+        if (personnummer != null) {
+            return repository.slettKonto(kontonummer);
         }
         return "Ikke innlogget";
     }

@@ -138,7 +138,7 @@ public class EnhetstestKontoController {
 
         //assert
         assertEquals("kontonummer", result);
-        verify(repository.slettKonto("12345678900"));
+        verify(repository).slettKonto("12345678900");
     }
 
     @Test
