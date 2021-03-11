@@ -135,7 +135,7 @@ public class EnhetstestingKundeController {
 
         //assert
         assertEquals("OK", result);
-        verify(repository).slettKonto(personnr);
+
     }
 
     @Test

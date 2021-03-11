@@ -35,6 +35,35 @@ public class EnhetstestKontoController {
     @Mock
     private Sikkerhet sjekk;
 
+    @Test
+    public void hentAlle_loggetInn(){
+        List<Konto>kontoer = new ArrayList<>();
+        List<Transaksjon> enTransaksjon = new ArrayList<>();
+        Konto konto1 = new Konto("01010110523","105010123456",
+                4500,"Lønn","NOK",enTransaksjon);
+        Konto konto2 = new Konto("01010110523","105010123456",
+                4500,"Lønn","NOK",enTransaksjon);
+
+        kontoer.add(konto1);
+        kontoer.add(konto2);
+
+        when(sjekk.loggetInn()).thenReturn("02048840995");
+        when(repository.hentAlleKonti()).thenReturn(kontoer);
+
+        List <Konto> resultat = adminKontoController.hentAlleKonti();
+
+        assertEquals(resultat,kontoer);
+    }
+
+    @Test
+    public void hentAlle_IkkeloggetInn(){
+        when(sjekk.loggetInn()).thenReturn(null);
+
+        List<Konto> resultat = adminKontoController.hentAlleKonti();
+
+        assertNull(resultat);
+    }
+
 
     @Test
     public void testRegKonto() {
