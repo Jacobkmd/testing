@@ -73,6 +73,30 @@ public class TestSikkerhetsController {
 
         assertEquals("OK", resultat);
     }
+    @Test
+    public void sjekkLoggetInn_FeilPassord() {
+        //when(sikkerhet.sjekkLoggInn(anyString(), anyString())).thenReturn("Feil i passord");
+
+        String resultat = sikkerhet.sjekkLoggInn("17049730979", "12");
+
+        assertEquals("Feil i passord", resultat);
+    }
+
+    @Test
+    public void sjekkLoggetInn_FeilPersonNummer() {
+
+        String resultat = sikkerhet.sjekkLoggInn("01234", "heiPådeg");
+
+        assertEquals("Feil i personnummer", resultat);
+    }
+
+    @Test
+    public void loggetInnFeilPersNrOrPswrd(){
+        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer eller passord");
+        String resultat = sikkerhet.sjekkLoggInn("01234566778","Heipådeg");
+
+        assertEquals("Feil i personnummer eller passord",resultat);
+    }
 
 
     @Test
@@ -83,7 +107,7 @@ public class TestSikkerhetsController {
 
         assertEquals("01234566778", resultat);
     }
-
+//heihei
     @Test
     public void testFail_LoggetInn() {
         session.setAttribute(null, null);
