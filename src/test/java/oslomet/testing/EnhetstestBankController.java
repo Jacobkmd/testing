@@ -38,13 +38,16 @@ public class EnhetstestBankController {
 
     @Test
     public void hentTransaksjoner() {
-        Transaksjon enTranskaksjon = new Transaksjon(4, "enTransaksjon", 4500.00, "01.01222", "hei", "1", "01010110523");
-        Transaksjon enTranskaksjon2 = new Transaksjon(5, "enTransaksjon", 4500.00, "01.01222", "hei", "1", "01010110523");
+        Transaksjon enTranskaksjon = new Transaksjon(4, "enTransaksjon",
+                4500.00, "01.01222", "hei", "1", "01010110523");
+        Transaksjon enTranskaksjon2 = new Transaksjon(5, "enTransaksjon",
+                4500.00, "01.01222", "hei", "1", "01010110523");
         List<Transaksjon> liste = new ArrayList<Transaksjon>();
         liste.add(enTranskaksjon);
         liste.add(enTranskaksjon2);
 
-        Konto enKonto = new Konto("01010110523", "01010110523", 1500, "lønnskonto", "nok", liste);
+        Konto enKonto = new Konto("01010110523", "01010110523", 1500,
+                "lønnskonto", "nok", liste);
         when(sjekk.loggetInn()).thenReturn("01010110523");
         when(repository.hentTransaksjoner(anyString(), anyString(), anyString())).thenReturn(enKonto);
         Konto resultat = bankController.hentTransaksjoner("456", "1545", "4545");
@@ -228,8 +231,10 @@ public class EnhetstestBankController {
     @Test
     public void hentBetalinger_loggetInn() {
         List<Transaksjon> betalinger = new ArrayList<>();
-        Transaksjon transaksjon1 = new Transaksjon(1, "enBetaling", 4000.00, "01.013333", "heisann", "1", "01010110523" );
-        Transaksjon transaksjon2 = new Transaksjon(2, "enBetaling2", 5000.00, "01.014444", "Hello", "2", "0204667899");
+        Transaksjon transaksjon1 = new Transaksjon(1, "enBetaling", 4000.00,
+                "01.013333", "heisann", "1", "01010110523");
+        Transaksjon transaksjon2 = new Transaksjon(2, "enBetaling2", 5000.00,
+                "01.014444", "Hello", "2", "0204667899");
         betalinger.add(transaksjon1);
         betalinger.add(transaksjon2);
 
@@ -255,7 +260,8 @@ public class EnhetstestBankController {
     @Test
     public void utforBetaling_loggetinn() {
         List<Transaksjon> betalinger = new ArrayList<>();
-        Transaksjon transaksjon1 = new Transaksjon(1, "enBetaling", 4000.00, "01.013333", "heisann", "1", "01010110523" );
+        Transaksjon transaksjon1 = new Transaksjon(1, "enBetaling", 4000.00,
+                "01.013333", "heisann", "1", "01010110523");
         betalinger.add(transaksjon1);
 
 
@@ -272,7 +278,7 @@ public class EnhetstestBankController {
     }
 
     @Test
-    public void utforBetaling_ikkeLoggetInn(){
+    public void utforBetaling_ikkeLoggetInn() {
         when(sjekk.loggetInn()).thenReturn(null);
 
         List<Transaksjon> Resultat = bankController.utforBetaling(1);
