@@ -217,9 +217,6 @@ public class EnhetstestBankController {
     @Test
     public void endreKundeInfo_IkkeloggetInn() {
 
-        // arrange
-        when(sjekk.loggetInn()).thenReturn(null);
-
         //act
         Kunde resultat = bankController.hentKundeInfo();
 
