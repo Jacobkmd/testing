@@ -93,5 +93,53 @@ public class EnhetstestingKundeController {
          assertEquals("Ikke logget inn", resultat);
      }
 
+    @Test
+    public void endre_loggetInn() {
+        Kunde innKunde = new Kunde("02058740889",
+                "Hans", "Lier", "Osloveien 20", "0880",
+                "Oslo","98345567","Heipådere");
+        when(sjekk.loggetInn()).thenReturn("01045623145");
+        when(repository.endreKundeInfo(innKunde)).thenReturn("OK");
+
+        String resultat = adminKundeController.endre(innKunde);
+
+        assertEquals("OK", resultat);
+    }
+
+    @Test
+    public void endre_ikkeLoggetInn() {
+        Kunde innKunde = new Kunde("02058740889",
+                "Henriette", "Magnussen", "Osloveien 19", "0880",
+                "Oslo","99345467","Heipådeg");
+        when(sjekk.loggetInn()).thenReturn(null);
+
+        String resultat = adminKundeController.endre(innKunde);
+
+        assertEquals("Ikke logget inn", resultat);
+    }
+
+    @Test
+    public void slett_loggetInn() {
+        String personNummer = "02058740889";
+        when(sjekk.loggetInn()).thenReturn("03058740889");
+        when(repository.slettKunde(personNummer)).thenReturn("OK");
+
+        String resultat = adminKundeController.slett(personNummer);
+
+        assertEquals("OK", resultat);
+    }
+
+    @Test
+    public void slett_ikkeLoggetinn() {
+        String personNummer = "02058740889";
+        when(sjekk.loggetInn()).thenReturn(null);
+
+        String resultat = adminKundeController.slett(personNummer);
+
+        assertEquals("Ikke logget inn", resultat);
+
+    }
+
+
 
 }
