@@ -74,13 +74,6 @@ public class TestSikkerhetsController {
         assertEquals("OK", resultat);
     }
 
-    @Test
-    public void loggetInnFeilPersNrOrPswrd(){
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer eller passord");
-        String resultat = sikkerhet.sjekkLoggInn("01234566778","Heipådeg");
-
-        assertEquals("Feil i personnummer eller passord",resultat);
-    }
 
     @Test
     public void test_LoggetInn() {
