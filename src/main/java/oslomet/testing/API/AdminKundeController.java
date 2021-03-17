@@ -3,9 +3,11 @@ package oslomet.testing.API;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import oslomet.testing.DAL.AdminRepository;
+import oslomet.testing.DAL.BankRepository;
 import oslomet.testing.Models.Kunde;
 import oslomet.testing.Sikkerhet.Sikkerhet;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @RestController
@@ -51,6 +53,14 @@ public class AdminKundeController {
             return repository.slettKunde(personnummer);
         }
         return "Ikke logget inn";
+    }
+
+    @Autowired
+    private DataSource dataSource;
+
+    @GetMapping("/initDB")
+    public String initDB(){
+        return BankRepository.initDB(dataSource);
     }
 }
 

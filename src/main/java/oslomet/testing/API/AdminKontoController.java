@@ -3,9 +3,11 @@ package oslomet.testing.API;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import oslomet.testing.DAL.AdminRepository;
+import oslomet.testing.DAL.BankRepository;
 import oslomet.testing.Models.Konto;
 import oslomet.testing.Sikkerhet.Sikkerhet;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @RestController
@@ -17,6 +19,7 @@ public class AdminKontoController {
 
     @Autowired
     private Sikkerhet sjekk;
+
 
     @GetMapping("/hentAlle")
     public List<Konto> hentAlleKonti() {
@@ -53,5 +56,13 @@ public class AdminKontoController {
             return repository.slettKonto(kontonummer);
         }
         return "Ikke innlogget";
+    }
+
+    @Autowired
+    private DataSource dataSource;
+
+    @GetMapping("/initDB")
+    public String initDB(){
+        return BankRepository.initDB(dataSource);
     }
 }
