@@ -75,7 +75,6 @@ public class TestSikkerhetsController {
     }
     @Test
     public void sjekkLoggetInn_FeilPassord() {
-        //when(sikkerhet.sjekkLoggInn(anyString(), anyString())).thenReturn("Feil i passord");
 
         String resultat = sikkerhet.sjekkLoggInn("17049730979", "12");
 
